@@ -13,8 +13,8 @@
     - name: Create an ec2 instance
       ec2:
          key_name: "{{ keypair }}"
-         aws_access_key: "AKIAJKCHVVFVMFG7KMNA"
-         aws_secret_key: "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"
+         aws_access_key: ""
+         aws_secret_key: ""
          group: Kubectl  # security group name
          instance_type: "{{ instance_type}}"
          image: "{{ ami }}"
