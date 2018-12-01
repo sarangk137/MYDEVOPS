@@ -1,0 +1,21 @@
+#!/bin/bash
+#This Module checks if the PID of specified process 
+#exists. If not, it returns a failure message
+
+source $1
+
+pid=`pidof $process`
+
+if [[ -n $pid ]]; then
+    printf '{
+         "msg" : %s is running with pid %s",
+         "changed" : 1
+    }' "$process" "$pid"
+
+else
+   printf '{
+         "msg" : "%s process is not running, hence no pid",
+         "failed" : "True"
+    }' "$process"
+
+fi

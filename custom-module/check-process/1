@@ -1,0 +1,8 @@
+- hosts: all
+  tasks:
+    - name: Check bro..if the process is running
+      action: chkprocess process=httpd
+      register: process
+      become: yes
+
+    - debug: msg="{{ process.msg }}"

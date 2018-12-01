@@ -1,0 +1,30 @@
+---
+- hosts: all
+  remote_user: root 
+  tasks: 
+  - name: Print the ansible_os_family value 
+    debug: 
+      msg: '{{ ansible_os_family }}' 
+  - name: Ensure the httpd package is updated 
+    yum: 
+      name: httpd     
+      state: latest 
+    become: True 
+    when: ansible_os_family == 'RedHat' 
+  - name: Ensure the apache2 package is updated 
+    apt: 
+      name: apache2 
+      state: latest 
+    become: True 
+    when: ansible_os_family == 'Debian'
+  - name: start service
+    service: name=httpd state=started
+    become: True
+    register: output_variable
+    when: ansible_os_family == 'RedHat'
+  - name: start service
+    service: name=apache2 state=started
+    register: output_variable_debian
+    when: ansible_os_family == 'Debian'
+  - debug:
+      msg: '{{ output_variable.state }}'

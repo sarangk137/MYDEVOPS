@@ -1,0 +1,18 @@
+- hosts: all
+  sudo: true 
+  vars:
+    - My_Sarang_Message: "Welcome to Ansible Bro..."
+    - My_Sarang_DB_Message: "Good Morning from Mongo DB"
+  
+  tasks:
+    - name: NGINX | I'm installing NGINX repo rpm bro now.. It is like httpd
+      yum: name=http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
+
+    - name: NGINX | Installing NGINX
+      yum: name=nginx state=latest
+
+    - name: index.html copy
+      template: src=index.html.j2 dest=/usr/share/nginx/html/index.html
+
+    - name: NGINX | Starting NGINX now brother..
+      service: name=nginx state=started

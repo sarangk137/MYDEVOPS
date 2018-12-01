@@ -1,0 +1,22 @@
+- hosts: all 
+  gather_facts: no
+  become: yes
+  vars:
+    remote_dir: "/opt/ansible-demo/RENAME_FILES_FOLDER"
+  tasks:
+    - name: Get the list of all file names inside the directory
+      shell: "(cd {{ remote_dir }}; find . -maxdepth 1 -type f) | cut -d'/' -f2"
+      register: My_files_to_rename
+      changed_when: no
+
+  #  - name: Print File Names
+  #    debug: var=My_files_to_rename
+
+    - name: Print File Names
+      debug: var=My_files_to_rename.stdout_lines
+
+    - name: Now, I will rename the files inside a directory RENAME_FILES_FOLDER by adding .zip extension
+      shell: "mv {{ remote_dir }}/{{ item.1 }} {{ remote_dir }}/{{ item.1 }}.zip"
+      become: yes
+      register: rename_My_files_zip
+      with_indexed_items: "{{ My_files_to_rename.stdout_lines }}"

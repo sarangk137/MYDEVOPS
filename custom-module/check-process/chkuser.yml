@@ -1,0 +1,10 @@
+---
+- hosts: all
+
+  tasks:
+    - name: Check if user exists
+      action: chkuser-python-file-name username=root
+      register: user
+      become: yes
+
+    - debug: msg="{{ user.msg }}"
