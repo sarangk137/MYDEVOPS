@@ -1,0 +1,33 @@
+#!/usr/bin/python
+
+#Task: Write a File system alarm email 90%
+
+# Input: Server IP, command df -h, mount, threadshold 90
+
+# df output, formating to email.
+
+# Python: List , loop (looping on the list) -- IP
+# string -- Commands
+# Int -- threashold
+# string operations on df -h output
+# 
+
+# Python modules
+# 1. paramiko
+# 2. smtp
+# 3. Sample programs from google.
+
+# psudo code:
+
+# for server in server_list:
+# 	output=ssh server "df -h /mount"
+# 	usage=output.parse()
+	# if usage > threashold:
+	# 	sendemail
+
+
+# Function:
+
+# 1. Do ssh and get the output
+# 2. Parse the output and return the usage value
+# 3. Send email

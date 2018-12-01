@@ -1,0 +1,22 @@
+- name: Manage Tomcat
+  hosts: localhost
+  become: true
+
+  roles:
+    - tomcat
+
+  tasks:
+    - hosts: localhost
+      systemd:
+        name: tomcat
+        enabled: yes
+        state: restarted
+      become: true
+    
+    - name: copy war
+      copy:
+        src: /usr/share/maven3/nvnshoppingcart/target/nvnshoppingcart.war
+        dest: /usr/local/apache-tomcat-8.0.23/webapps/
+        owner: root
+        group: root
+        mode: 0755

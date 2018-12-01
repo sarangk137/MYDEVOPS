@@ -1,0 +1,27 @@
+- hosts: all
+  become: true
+  vars:
+    - swarm_address: 172.16.199.220
+	- db_image: mydb
+	- app_image: myapp
+	- webserver_image: mywebserver
+	- db_service: db_server
+	- app_service: app_server
+	- webserver_service: webserver
+    - db_data_vol: /opt/mongo/db
+    - db_confidb_vol: /opt/mongo/configdb
+    - app_replicas: 3
+    - webserver_replicas: 5
+    - webserver_port: 8080
+    - network_name: blog_network 
+
+--db_service
+"docker service create -d --name {{ db_service }} --network {{ network_name }} --mount type=bind,source={{db_data_vol}},target=/data/db --mount type=bind,source={{db_confidb_vol}},target=/data/configdb {{ db_image }}"
+
+--app service
+
+"docker service create -d --name {{ app_service }} --network {{ network_name }} --replicas {{ app_replicas }} {{ app_image }}"
+
+
+--webserver_service
+"docker service create -d --name {{ webserver_service }} --network {{ network_name }} --replicas {{ webserver_replicas }} -p {{webserver_port}}:80 {{ webserver_image }}"

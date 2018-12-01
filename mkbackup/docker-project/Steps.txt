@@ -1,0 +1,8 @@
+Create single node docker swarm cluster
+Install Mean stack in it  using blog_swarm.yml
+
+Variables used in our ansible code
+Install Docker Using ansible
+Build docker images
+Enable Docker Swarm
+Install docker services
